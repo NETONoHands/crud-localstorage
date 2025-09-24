@@ -101,6 +101,7 @@ const preencheCampos = (cliente) => {
 
 const editaCliente = (index) => {
     const cliente = readClient()[index]
+    cliente.index = index;
     preencheCampos(cliente);
     openModal();
 }
@@ -112,7 +113,12 @@ const editDelete = (event) => {
         if (action == 'editar') {
             editaCliente(index);
         } else {
-            console.log("deletando");
+            const cliente = readClient()[index];
+            const resposta = confirm(`Deseja realmente excluir o cliente ${cliente.nome}?`)
+            if (resposta) {
+                deleteCliente(index);
+                updateTabela();
+            }
         }
     }
 }
